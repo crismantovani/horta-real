@@ -1,5 +1,10 @@
-.container {
+.container,
+.container-fluid {
   border-radius: 0.938rem;
   background-color: var(--background-container);
   padding: 1.25rem 0.625rem 1.25rem 0.625rem;
+}
+
+.container-fluid {
+  padding: 0;
 }
