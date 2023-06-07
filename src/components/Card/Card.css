@@ -1,0 +1,63 @@
+.card {
+  padding: 1.25rem;
+  background: var(--background-card);
+  border-radius: 1rem;
+  width: 7.813rem;
+  color: var(--black);
+  display: grid;
+  gap: 1.25rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: 300ms;
+  margin: 4px;
+}
+.card:hover {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.card__sensors {
+}
+
+.card__temperature {
+  display: flex;
+  flex-direction: column;
+}
+.card__temperature :first-child {
+  font-size: 2.5rem;
+  line-height: 3.063rem;
+}
+.card__temperature :last-child {
+  font-size: 0.625rem;
+}
+
+.card__humidity {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 480px) {
+  .card {
+    max-width: 6.563rem;
+    padding: 0.625rem;
+  }
+  .card__title {
+    font-size: 0.875;
+  }
+  .card__temperature :first-child {
+    font-size: 2.25rem;
+    line-height: 2.772rem;
+  }
+  .card__temperature :last-child {
+    font-size: 0.938rem;
+  }
+}
