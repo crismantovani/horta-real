@@ -7,11 +7,11 @@ import Sensors from "../../model/sensors";
 import { GetRecordsFromSession } from "../../model/Data";
 import Container from "../../components/Container/Container";
 
-const apiKey = "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";
+const apiKey = "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";
 
 import { Configuration, OpenAIApi } from "openai";
 const configuration = new Configuration({
-  organization: "org-8I89LK6INrlnhpgk9FBeLGqc",
+  organization: "org-6MEOC5EmSLxCtsnVrfL2ny1a",
   apiKey,
 });
 const openai = new OpenAIApi(configuration);
