@@ -1,5 +1,7 @@
 {
   "rewrites":  [
-    {"source": "/cadastro", "destination": "/"}
+    {"source": "/cadastro", "destination": "/"},
+    {"source": "/usuarios", "destination": "/"},
+    {"source": "/informacoes/:groupId/:itemId", "destination": "/"}
   ]
 }
