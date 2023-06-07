@@ -1,0 +1,43 @@
+.header {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 1px 4px var(--shadow);
+  padding: 0.75rem var(--padding-inline);
+}
+
+.logo {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: start;
+  gap: 0.313rem;
+}
+.logo__text {
+  font-family: var(--font-brand);
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.logo__icon {
+  max-width: 1.875rem;
+}
+
+.user {
+  width: 2.188rem;
+  height: 2.188rem;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  background: #eee url("../../assets/img/carlos.png");
+  background-size: cover;
+}
+
+.pageTitle {
+  background: var(--light);
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--white);
+  padding: 0.625rem var(--padding-inline);
+}
