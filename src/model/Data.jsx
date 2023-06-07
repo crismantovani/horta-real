@@ -5,21 +5,39 @@ export const Records = [
   { id: "004", item_id: "029", sensors: ["001", "004"] },
   { id: "005", item_id: "030", sensors: ["001", "004"] },
   { id: "006", item_id: "031", sensors: ["001", "004"] },
+  { id: "007", item_id: "028", sensors: ["001", "004"] },
 ];
 
 export const InitRecords = () => {
-  sessionStorage.setItem("records", JSON.stringify(Records));
+  if (!GetRecordsFromSession())
+    localStorage.setItem("records", JSON.stringify(Records));
 };
 
 export const GetRecordsFromSession = () => {
-  return JSON.parse(sessionStorage.getItem("records"));
+  return JSON.parse(localStorage.getItem("records"));
 };
 
-export const AddRecordsToSession = () => {
+const HasRecordOnSession = (itemId, currentRecords) => {
+  return !currentRecords.filter((record) => {
+    return record.item_id === itemId;
+  }).length;
+};
+
+const GetNextId = (currentRecords) => {
+  let maxId = currentRecords.length + 1;
+  return "00" + maxId;
+};
+
+export const AddRecordsToSession = (record) => {
   let current_records = GetRecordsFromSession();
-  console.log(current_records);
+
+  if (HasRecordOnSession(record.item_id, current_records)) {
+    const { item_id, sensors } = record;
+    current_records.push({ id: GetNextId(current_records), item_id, sensors });
+    localStorage.setItem("records", JSON.stringify(current_records));
+  }
 };
 
 export const RemoveAllRecordsFromSession = () => {
-  sessionStorage.remove("records");
+  localStorage.remove("records");
 };

@@ -1,0 +1,21 @@
+.info {
+  padding: 0 var(--padding-inline);
+}
+.info:last-of-type {
+  margin-bottom: 72px;
+}
+
+.info__header,
+.info__content {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2c39a;
+  padding: 10px 20px;
+}
+.info__header p {
+  display: grid;
+}
+
+.info__content {
+  border: none;
+}

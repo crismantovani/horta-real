@@ -2,27 +2,27 @@ const Sensors = [
   {
     id: "001",
     name: "Umidade do solo (5cm)",
-    value: "",
+    value: "76%",
   },
   {
     id: "002",
     name: "Umidade do solo (20cm)",
-    value: "",
+    value: "60%",
   },
   {
     id: "003",
     name: "Umidade do ar",
-    value: "",
+    value: "75%",
   },
   {
     id: "004",
     name: "Temperatura do ar",
-    value: "",
+    value: "24º",
   },
   {
     id: "005",
     name: "Luminosidade",
-    value: "",
+    value: "65%",
   },
 ];
 
