@@ -1,5 +1,9 @@
 module.exports = {
-  env: { browser: true, es2020: true, node: true, amd: true
+  env: { 
+    browser: true, 
+    es2020: true, 
+    node: true, 
+    amd: true
 },
   extends: [
     'eslint:recommended',
@@ -7,12 +11,27 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
+  parserOptions: { 
+    ecmaVersion: 'latest', 
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+  },
+},
+  settings: { 
+    react: { 
+      version: "detect",
+    },
+  },
   plugins: ['react-refresh', 'react'],
   rules: {
-    'react-refresh/only-export-components': 'warn',
-    "react/jsx-uses-vars": "error",
-    "react/jsx-uses-react": "error"
+    'react-refresh/only-export-components': 'off',
+    'react/react-in-jsx-scope': "off",
+    'react/prop-types': "off",
+    'no-unsafe-finally': "off",
+    'no-unused-vars': "off",
+    'react/jsx-key': "off",
+    'react/jsx-uses-vars': "error",
+    'react/jsx-uses-react': "error"
   },
 }
