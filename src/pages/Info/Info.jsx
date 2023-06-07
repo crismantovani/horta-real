@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import "./Info.css";
 import Groups from "../../model/Groups";
-import Sensors from "../../model/sensors";
+import Sensors from "../../model/Sensors";
 import { GetRecordsFromSession } from "../../model/Data";
 import Container from "../../components/Container/Container";
 
