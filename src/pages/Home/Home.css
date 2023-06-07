@@ -1,0 +1,16 @@
+.main {
+  display: grid;
+  gap: 20px;
+  padding: 0 var(--padding-inline);
+  margin-bottom: 72px;
+}
+
+.group h1 {
+  margin: 0;
+  margin-bottom: 0.625rem;
+}
+.group__items {
+  display: flex;
+  gap: 1rem;
+  max-width: calc(100vw - (var(--padding-inline) * 2));
+}

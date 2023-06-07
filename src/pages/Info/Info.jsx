@@ -97,7 +97,7 @@ const Info = () => {
         <Container containerFluid="true">
           <div className="info__header">
             <p>
-              Saiba mais <span>.</span>
+              Saiba mais
             </p>
           </div>
           <div className="info__content">
