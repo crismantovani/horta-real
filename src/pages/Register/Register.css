@@ -1,0 +1,33 @@
+.registry {
+  padding: 0 var(--padding-inline);
+  margin-bottom: 72px;
+}
+.registry-form,
+.registry-form__group {
+  display: grid;
+  gap: 1.25rem;
+}
+.registry-form__group {
+  gap: 0;
+}
+.registry-form__group label {
+  font-size: 0.75rem;
+}
+.registry-form__group select {
+  color: var(--black);
+  background: var(--background-container);
+  border: 1px solid var(--secondary);
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+.registry-form__group select:focus-visible {
+  outline-width: 0px;
+}
+.registry-form button {
+  font-size: 1rem;
+  background: var(--light);
+  border-radius: 50px;
+  border: none;
+  padding: 8px 28px;
+  justify-self: end;
+}
