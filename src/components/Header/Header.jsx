@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 import "./Header.css";
 import logo from "../../assets/img/logo.svg";
@@ -14,15 +14,18 @@ function Header() {
       setTitlePage("Residencial Vivendas da Barra");
     if (location.pathname === "/cadastro") setTitlePage("Cadastrar item");
     if (location.pathname.includes("/informacoes")) setTitlePage("Informações");
+    if (location.pathname.includes("/usuarios")) setTitlePage("Usuários");
   }, [location]);
 
   return (
     <header>
       <div className="header">
-        <div className="logo">
-          <img className="logo__icon" src={logo} alt="Arvrinha" />
-          <span className="logo__text">HortaReal</span>
-        </div>
+        <Link to="/">
+          <div className="logo">
+            <img className="logo__icon" src={logo} alt="Logo do HortaReal" />
+            <span className="logo__text">HortaReal</span>
+          </div>
+        </Link>
         <div className="user"></div>
       </div>
       <div className="pageTitle">{titlePage}</div>

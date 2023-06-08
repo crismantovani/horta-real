@@ -22,7 +22,7 @@ const Article = ({ item, groupId }) => {
   return (
     <article>
       <Link to={`/informacoes/` + groupId + `/` + item.id}>
-        <Card name={item.name}></Card>
+        <Card name={item.name} sensors={item.sensors}></Card>
       </Link>
     </article>
   );
