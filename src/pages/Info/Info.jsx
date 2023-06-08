@@ -1,9 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import "./Info.css";
 import Groups from "../../model/Groups";
 import Sensors from "../../model/Sensors";
+import arrowDown from "../../assets/icons/arrow-down.svg";
 import { GetRecordsFromSession } from "../../model/Data";
 import Container from "../../components/Container/Container";
 
@@ -17,6 +18,9 @@ const Info = () => {
   const [sensors, setSensors] = useState([]);
   const { groupId, itemId } = useParams();
   const [choices, setChoices] = useState([]);
+  const [more, setMore] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   function getGroupAndItem() {
     const groupFiltered = Groups.filter((group) => {
@@ -46,11 +50,12 @@ const Info = () => {
     apiKey,
   });
   const openai = new OpenAIApi(configuration);
-  
+
   const getDataFromGPT = async (itemName) => {
+    setLoading(true);
     return await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `Qual a temperatura ideal para o cultivo de ${itemName}?`,
+      prompt: `Qual a temperatura ideal para o cultivo de ${itemName}? E qual é a estação do ano mais propícia para o cultivo?`,
       temperature: 1,
       max_tokens: 595,
       top_p: 1,
@@ -59,56 +64,106 @@ const Info = () => {
     });
   };
 
+  const getMoreInfoFromGPT = async (itemName) => {
+    if (!more.length && !loadingMore) {
+      setLoadingMore(true);
+      const result = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: `Conte dicas para o cultivo de ${itemName}`,
+        temperature: 1,
+        max_tokens: 595,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      });
+
+      setMore(result.data.choices);
+      setLoadingMore(false);
+    }
+  };
+
   useEffect(() => {
     const { groupFiltered, itemFiltered } = getGroupAndItem();
 
     setGroup(groupFiltered);
     setItem(itemFiltered);
     setSensors(getSensorsData());
-    getDataFromGPT(itemFiltered.name).then(res => {
-      console.log(res)
-      setChoices(res.data.choices)
+    getDataFromGPT(itemFiltered.name).then((res) => {
+      setChoices(res.data.choices);
+      setLoading(false);
     });
   }, [groupId, itemId]);
 
-  console.log(choices,"oi");
   return (
-    <Fragment>
-      <section className="info">
-        <Container containerFluid="true">
-          <div className="info__header">
-            <p>
-              <span>{item.name}</span>
-              <span>{group.name}</span>
-            </p>
-            <p>
-              {sensors.map((sensor) => (
-                <span>
-                  {sensor.name}: {sensor.value}
-                </span>
-              ))}
-            </p>
-          </div>
-          <div className="info__content"></div>
-        </Container>
-      </section>
+    <>
+      {!loading && (
+        <section className="info">
+          <Container containerFluid="true">
+            <div className="info__header">
+              <p>
+                <span className="info__header__title">{item.name}</span>
+                <span>{group.name}</span>
+              </p>
+              <p>
+                {sensors.map((sensor) => (
+                  <span>
+                    {sensor.name}: {sensor.value}
+                  </span>
+                ))}
+              </p>
+            </div>
+            {Array.isArray(choices) && (
+              <div className="info__content">
+                {choices.length > 0 &&
+                  choices.map((choice) => <p>{choice.text}</p>)}
+              </div>
+            )}
+          </Container>
+        </section>
+      )}
 
-      <section className="info">
-        <Container containerFluid="true">
-          <div className="info__header">
-            <p>
-              Saiba mais
-            </p>
-          </div>
-          <div className="info__content">
-            { Array.isArray(choices) && choices.length > 0 && 
-                choices.map((choice) => (
-              <p>{choice.text}</p>
-            ))}
-          </div>
-        </Container>
-      </section>
-    </Fragment>
+      {!loading && (
+        <section className="info">
+          <Container containerFluid="true">
+            <div
+              className={`info__header pointer ${
+                !more.length && !loadingMore ? "no-content" : ""
+              }`}
+              onClick={() => getMoreInfoFromGPT(item.name)}
+            >
+              <p className="info__header__title">
+                <span>Saiba mais</span>
+              </p>
+              <p>
+                <img src={arrowDown} />
+              </p>
+            </div>
+
+            {!!more.length && !loadingMore && (
+              <div className="info__content">
+                {more.length > 0 && more.map((choice) => <p>{choice.text}</p>)}
+              </div>
+            )}
+
+            {loadingMore && (
+              <div className="info__content">
+                <div
+                  className="loader flip-horizontal-bottom"
+                  style={{ width: "20px", height: "20px", padding: "10px" }}
+                ></div>
+              </div>
+            )}
+          </Container>
+        </section>
+      )}
+
+      {loading && (
+        <div className="backdrop">
+          <div className="loader flip-horizontal-bottom"></div>
+        </div>
+      )}
+    </>
   );
 };
+
 export default Info;
